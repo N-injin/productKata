@@ -1,5 +1,5 @@
 export default interface IDateService {
-    dateMinusMonths(monthsToSubtract: number);
+    dateMinusMonths(monthsToSubtract: number): Date;
 
-    dateMinusYears(yearsToSubtract: number);
+    dateMinusYears(yearsToSubtract: number): Date;
 }
