@@ -1,4 +1,4 @@
-import IDateService from "./IDateService";
+import IDateService from "../../domain/service/IDateService";
 
 export default class DateService implements IDateService {
     dateMinusMonths(monthsToSubtract: number) {
