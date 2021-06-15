@@ -13,14 +13,17 @@ export default class ProductController {
     }
 
     private displayProduct(product: IProduct): void {
+        console.log("Vous n'êtes pas authentifié");
         console.log(`${product.name}`);
         console.log(`${product.description}`);
         console.log(`${product.categoryId}`);
-        console.log(`Price : ${product.price}`);
+        console.log(`Price : ${product.price.getValue()} ${product.price.getCurrency()}`);
+        console.log(`Détails du produit :`);
         console.log(`Name | value`);
         product.detail.forEach(detail => {
             console.log(`${detail.name} | ${detail.value}`);
         });
+        console.log("\n");
     }
 
     private displayProductWithUser(product: IProduct, user: IUser): void {
@@ -28,11 +31,13 @@ export default class ProductController {
         console.log(`${product.name}`);
         console.log(`${product.description}`);
         console.log(`${product.categoryId}`);
-        console.log(`Price : ${product.price}`);
+        console.log(`Price : ${product.price.getValue()} ${product.price.getCurrency()}`);
+        console.log(`Détails du produit :`);
         console.log(`Name | value`);
         product.detail.forEach(detail => {
             console.log(`${detail.name} | ${detail.value}`);
         });
+        console.log("\n");
     }
 
     public productDetail(productId: number, userId?: number): void {
@@ -51,7 +56,7 @@ export default class ProductController {
                 this.displayProduct(productToDisplay);
             }
         } catch (e) {
-            console.log('Erreur lors de la requête : ', e.message);
+            console.log('Error during request : ', e.message);
         }
     }
 }
