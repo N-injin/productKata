@@ -12,12 +12,25 @@ export default class ProductMemoryRepository implements IProductRepository {
         this.products = [
             new ProductMemory(
                 1,
-                'Boule de pétanque (unité)',
-                'Une boule de pétanque seule',
+                "Boule de pétanque (unité)",
+                "Une boule de pétanque seule",
                 30.0,
+                "EUR",
                 1,
                 [
-                    new Detail('poids', '10 kilos')
+                    new Detail("poids", "10 kilos")
+                ]
+            ),
+            new ProductMemory(
+                2,
+                "Boule de pétanque (pack de 6)",
+                "La collection complète pour les accros de la pétanque",
+                98.0,
+                "EUR",
+                1,
+                [
+                    new Detail("poids total", "60 kilos"),
+                    new Detail("poids par boule", "10 kilos"),
                 ]
             )
         ];
@@ -27,7 +40,7 @@ export default class ProductMemoryRepository implements IProductRepository {
         const index = this.products.findIndex(product => product.id === productId);
 
         if (index === -1) {
-            throw new ProductDoesNotExistError();
+            throw new ProductDoesNotExistError(`Product of id ${productId} does not exist`);
         }
 
         return ProductMemoryAdapter.productMemoryToProduct(this.products[index]);

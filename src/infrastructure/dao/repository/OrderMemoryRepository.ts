@@ -7,7 +7,38 @@ export default class OrderMemoryRepository implements IOrderRepository {
     orders: OrderMemory[];
 
     constructor() {
-        this.orders = [];
+        this.orders = [
+            new OrderMemory(
+                1,
+                1,
+                new Date(2021, 6, 15)
+            ),
+            new OrderMemory(
+                1,
+                1,
+                new Date(2021, 6, 14)
+            ),
+            new OrderMemory(
+                1,
+                1,
+                new Date(2021, 5, 10)
+            ),
+            new OrderMemory(
+                1,
+                1,
+                new Date(2021, 5, 9)
+            ),
+            new OrderMemory(
+                1,
+                1,
+                new Date(2021, 5, 8)
+            ),
+            new OrderMemory(
+                1,
+                2,
+                new Date(2021, 4, 5)
+            )
+        ];
     }
 
     findByUserAndDate(userId: number, date: Date): IOrder[] {

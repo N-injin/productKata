@@ -9,7 +9,7 @@ export default class UserMemoryRepository implements IUserRepository {
 
     constructor() {
         this.users = [
-            new UserMemory(1, 'Jean paul', 'jp2002'),
+            new UserMemory(1, "Jean paul", "jp2002"),
         ];
     }
 
@@ -17,7 +17,7 @@ export default class UserMemoryRepository implements IUserRepository {
         const index = this.users.findIndex(user => user.id === userId);
 
         if (index === -1) {
-            throw new UserDoesNotExistError();
+            throw new UserDoesNotExistError(`User of id ${userId} does not exist`);
         }
 
         return UserMemoryAdapter.userMemoryToUser(this.users[index]);
