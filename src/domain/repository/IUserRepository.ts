@@ -1,4 +1,4 @@
-import IUser from "../models/IUser";
+import IUser from "../model/IUser";
 
 export default interface IUserRepository {
     findOne(userId: number): IUser;
