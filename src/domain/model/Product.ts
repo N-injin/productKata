@@ -1,4 +1,5 @@
 import IProduct from "./IProduct";
+import IOrder from "./IOrder";
 
 export default class Product implements IProduct {
     id: number;
@@ -9,5 +10,9 @@ export default class Product implements IProduct {
         this.id = id;
         this.name = name;
         this.description = description;
+    }
+
+    evaluateDiscount(orderLastSixMonths: IOrder[], orderLastYear: IOrder[]): IProduct {
+        return this;
     }
 }
