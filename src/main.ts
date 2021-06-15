@@ -16,7 +16,6 @@ const productRepository = new ProductMemoryRepository();
 const dateService = new DateService();
 const configurationService = new ConfigurationService(CONFIGURATION);
 
-
 const viewProductInformation = new ViewProductInformation(productRepository);
 const viewProductInformationAsUser = new ViewProductInformationAsUser(
     productRepository,
