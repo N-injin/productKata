@@ -9,7 +9,7 @@ export default class UserMemoryRepository implements IUserRepository {
 
     constructor() {
         this.users = [
-            new UserMemory(1, 'Jean paul', ''),
+            new UserMemory(1, 'Jean paul', 'jp2002'),
         ];
     }
 

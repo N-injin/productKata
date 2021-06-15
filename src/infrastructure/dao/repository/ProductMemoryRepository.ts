@@ -3,12 +3,24 @@ import IProduct from "../../../domain/model/IProduct";
 import ProductMemory from "../model/ProductMemory";
 import {ProductDoesNotExistError} from "../../error/ProductDoesNotExistError";
 import ProductMemoryAdapter from "../adapter/ProductMemoryAdapter";
+import Detail from "../../../domain/model/Detail";
 
 export default class ProductMemoryRepository implements IProductRepository {
     products: ProductMemory[];
 
     constructor() {
-        this.products = [];
+        this.products = [
+            new ProductMemory(
+                1,
+                'Boule de pétanque (unité)',
+                'Une boule de pétanque seule',
+                30.0,
+                1,
+                [
+                    new Detail('poids', '10 kilos')
+                ]
+            )
+        ];
     }
 
     findOne(productId: number): IProduct {

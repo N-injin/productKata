@@ -12,21 +12,17 @@ export default class ViewProductInformationAsUser {
     }
 
     public execute(productId: number, userId: number): IProduct {
-        try {
-            const product = this.productRepository.findOne(productId);
-            const orderLastSixMonths = this.orderRepository.findByUserAndDate(
-                userId,
-                this.dateService.dateMinusMonths(6)
-            );
-            const orderLastYear = this.orderRepository.findByUserAndProductAndDate(
-                userId,
-                productId,
-                this.dateService.dateMinusYears(1)
-            );
+        const product = this.productRepository.findOne(productId);
+        const orderLastSixMonths = this.orderRepository.findByUserAndDate(
+            userId,
+            this.dateService.dateMinusMonths(6)
+        );
+        const orderLastYear = this.orderRepository.findByUserAndProductAndDate(
+            userId,
+            productId,
+            this.dateService.dateMinusYears(1)
+        );
 
-            return product.evaluateDiscount(orderLastSixMonths, orderLastYear);
-        } catch (e) {
-            console.log(e);
-        }
+        return product.evaluateDiscount(orderLastSixMonths, orderLastYear);
     }
 }
