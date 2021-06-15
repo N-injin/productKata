@@ -12,6 +12,21 @@ export default class ViewProductInformationAsUser {
     }
 
     public execute(productId: number, userId: number): IProduct {
+        try {      
+            const user = this.userRepository.findOne(userId);
+            const product = this.productRepository.findOne(productId);
 
+            let currentDate = new Date();
+            currentDate.setMonth(currentDate.getMonth()-6);
+            const orderLastSixMonths = this.orderRepository.findByUserAndDate(userId,currentDate);
+
+            currentDate = new Date();
+            currentDate.setFullYear(currentDate.getFullYear()-1);
+            const orderLastYear = this.orderRepository.findByUserAndProductAndDate(userId,productId,currentDate);
+
+            return product.evaluateDiscount(orderLastSixMonths, orderLastYear);
+        } catch (e) {
+            console.log(e);
+        }
     }
 }

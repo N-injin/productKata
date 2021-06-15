@@ -6,6 +6,10 @@ export default class ViewProductInformation {
     }
 
     public execute(productId: number): IProduct {
-
+        try {
+            return this.productRepository.findOne(productId);
+        } catch (e) {
+            console.log(e);
+        }
     }
 }
