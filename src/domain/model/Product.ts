@@ -1,16 +1,18 @@
 import IProduct from "./IProduct";
 import IOrder from "./IOrder";
 import Detail from "./Detail";
+import {Money} from "../types/Money";
+import DiscountRule from "../types/DiscountRule";
 
 export default class Product implements IProduct {
     id: number;
     name: string;
     description: string;
-    price:number;
-    categoryId:number;
-    detail:Detail[];
+    price: Money;
+    categoryId: number;
+    detail: Detail[];
 
-    constructor(id: number, name: string, description: string, price:number, categoryId:number, detail:Detail[]) {
+    constructor(id: number, name: string, description: string, price: Money, categoryId: number, detail: Detail[]) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -19,15 +21,27 @@ export default class Product implements IProduct {
         this.detail = detail;
     }
 
-    evaluateDiscount(orderLastSixMonths: IOrder[], orderLastYear: IOrder[]): IProduct {
-        let discount = 0;
-        if (orderLastSixMonths.length >= 3 ) {
-            discount -= 0.10*this.price;
-        } 
-        if (orderLastYear.length >= 5) {
-            discount += 0.05*this.price;
+    evaluateDiscount(
+        ordersLastSixMonths: IOrder[],
+        ordersLastYear: IOrder[],
+        discount: DiscountRule,
+        rise: DiscountRule,
+    ): IProduct {
+        let discountValue = 0;
+        if (ordersLastSixMonths.length >= discount.limitToTriggerDiscount) {
+            discountValue -= discount.value * this.price.getValue();
         }
-        
-        return new Product(this.id, this.name, this.description, this.price+discount, this.categoryId, this.detail);
+        if (ordersLastYear.length >= rise.limitToTriggerDiscount) {
+            discountValue += rise.value * this.price.getValue();
+        }
+
+        return new Product(
+            this.id,
+            this.name,
+            this.description,
+            this.price.add(new Money(discountValue, this.price.getCurrency())),
+            this.categoryId,
+            this.detail
+        );
     }
 }
